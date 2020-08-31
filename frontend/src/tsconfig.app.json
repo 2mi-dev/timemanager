@@ -1,0 +1,21 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "module": "es2015",
+    "types": []
+  },
+//  "exclude": [
+//    "src/test.ts",
+//    "**/*.spec.ts",
+//  ]
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts",
+    "../node_modules/viser-ng/**/*.spec.ts"
+  ],
+  "include": [
+    "**/*.ts",
+    "../node_modules/viser-ng/**/**.ts"
+  ]
+}

@@ -1,0 +1,101 @@
+server:
+  port: 8080
+  compression:
+    enabled: true
+  servlet:
+    session:
+      cookie:
+        http-only: true
+  http2:
+    enabled: true
+  tomcat:
+    remote-ip-header: X-Forwarded-For
+    protocol-header: X-Forwarded-Proto
+logging:
+  file: logs/application.log
+  level:
+    root: INFO
+    com.luhuiguo: INFO
+info:
+  build:
+    artifact: "@project.artifactId@"
+    name: "@project.name@"
+    description: "@project.description@"
+    version: "@project.version@"
+spring:
+  application:
+    name: "@project.artifactId@"
+  profiles:
+    active: "@spring.profiles.active@"
+  jackson:
+    serialization:
+      indent-output: true
+      write-dates-as-timestamps: false
+  messages:
+    basename: i18n/messages
+  mvc:
+    date-format: yyyy-MM-dd
+    favicon:
+      enabled: false
+  sevlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+  thymeleaf:
+    mode: HTML
+    cache: true
+  mail:
+    host: localhost
+    port: 25
+    username: admin@localhost
+    password:
+  h2:
+    console:
+      enabled: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true
+    username: user
+    password: pass
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLInnoDBDialect
+    database: MYSQL
+    open-in-view: false
+    show-sql: false
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+      properties:
+        hibernate.id.new_generator_mappings: true
+        hibernate.cache.use_second_level_cache: true
+        hibernate.cache.use_query_cache: false
+        hibernate.generate_statistics: false
+application:
+  logging:
+    logstash:
+      enabled: false
+      host: localhost
+      port: 5000
+      queue-size: 512
+  mail:
+    from: luhg@gildata.com
+    baes-url: http://my-server-url-to-change
+  security:
+    authentication:
+      jwt:
+        secret: my-secret-token-to-change-in-production
+        token-validity-in-seconds: 86400
+        token-validity-in-seconds-for-remember-me: 2592000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    mail:
+      enabled: false

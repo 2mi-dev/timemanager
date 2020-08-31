@@ -1,0 +1,102 @@
+<div class="content__title">
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/']">Home</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a [routerLink]="['/users']">User Management</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      {{user?.username || 'New user'}}
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+</div>
+<nz-card [nzBordered]="false" nzTitle="Edit User" [nzLoading]="loading">
+  <form nz-form [formGroup]="form" (ngSubmit)="submit()" autocomplete="off" novalidate>
+    <nz-form-item>
+      <nz-alert *ngIf="failed" nzType="error" nzMessage="Failed to save user information!" [nzShowIcon]="true"></nz-alert>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="24" nzSm="7" nzRequired nzFor="username">Username</nz-form-label>
+      <nz-form-control nzXs="24" nzSm="12" nzMd="10">
+        <input nz-input formControlName="username" id="username" placeholder="Please enter your username">
+        <nz-form-explain *ngIf="username.dirty && username.errors || username.pending">
+          <ng-container *ngIf="username.errors?.required">Please enter your username! </ng-container>
+          <ng-container *ngIf="username.errors?.minlength">User name must be 2 to 20 characters! </ng-container>
+          <ng-container *ngIf="username.errors?.maxlength">User name must be 2 to 20 characters! </ng-container>
+          <ng-container *ngIf="username.errors?.pattern">The username can only be lowercase English letters or numbers! </ng-container>
+          <ng-container *ngIf="username.errors?.duplicated">The username has been registered! </ng-container>
+          <ng-container *ngIf="username.pending">Checking...</ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="24" nzSm="7" [nzRequired]="!user?.id" nzFor="password">Password</nz-form-label>
+      <nz-form-control nzXs="24" nzSm="12" nzMd="10">
+        <input nz-input type="password" formControlName="password" id="password" placeholder="Please enter password">
+        <ng-container *ngIf="password.dirty && password.errors">
+          <nz-form-explain *ngIf="password.errors.required">Please enter your password! </nz-form-explain>
+          <nz-form-explain *ngIf="password.errors.minlength">The password must be 2 to 20 characters! </nz-form-explain>
+          <nz-form-explain *ngIf="password.errors.maxlength">The password must be 2 to 20 characters! </nz-form-explain>
+        </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="24" nzSm="7" nzFor="nickname">nickname</nz-form-label>
+      <nz-form-control nzXs="24" nzSm="12" nzMd="10">
+        <input nz-input formControlName="nickname" id="nickname" placeholder="Please enter a nickname">
+        <nz-form-explain *ngIf="nickname.errors">The maximum nickname is 20 characters! </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="24" nzSm="7" nzFor="name">Name</nz-form-label>
+      <nz-form-control nzXs="24" nzSm="12" nzMd="10">
+        <input nz-input formControlName="name" id="name" placeholder="Please enter your name">
+        <nz-form-explain *ngIf="name.errors">The name can be up to 20 characters! </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="24" nzSm="7" nzFor="email">Email</nz-form-label>
+      <nz-form-control nzXs="24" nzSm="12" nzMd="10">
+        <input nz-input formControlName="email" id="email" placeholder="Please enter your email address">
+        <ng-container *ngIf="email.dirty && email.errors">
+          <nz-form-explain *ngIf="email.errors.required">Please enter your email address! </nz-form-explain>
+          <nz-form-explain *ngIf="email.errors.maxlength">The email address can be up to 100 characters! </nz-form-explain>
+          <nz-form-explain *ngIf="email.errors.email">Please enter the correct email address! </nz-form-explain>
+          <nz-form-explain *ngIf="email.errors.duplicated">The email address has been registered! </nz-form-explain>
+        </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="24" nzSm="7" nzFor="phone">Phone</nz-form-label>
+      <nz-form-control nzXs="24" nzSm="12" nzMd="10">
+        <input nz-input formControlName="phone" id="phone" placeholder="Please enter the phone number">
+        <ng-container *ngIf="phone.dirty && phone.errors">
+          <nz-form-explain *ngIf="phone.errors.maxlength">The phone number can be up to 20 characters! </nz-form-explain>
+          <nz-form-explain *ngIf="phone.errors.duplicated">The phone number has been registered! </nz-form-explain>
+        </ng-container>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzXs="24" nzSm="7" nzFor="authorities">Permissions</nz-form-label>
+      <nz-form-control nzXs="24" nzSm="12" nzMd="10">
+        <nz-select nzMode="multiple" nzPlaceHolder="Please select permissions" formControlName="authorities">
+          <nz-option nzLabel="User" nzValue="ROLE_USER"></nz-option>
+          <nz-option nzLabel="Administrator" nzValue="ROLE_ADMIN"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+        <label nz-checkbox formControlName="enabled" id="enabled">Available</label>
+        <label nz-checkbox formControlName="activated" id="activated">Activate</label>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+        <button nz-button nzType="primary" type="submit" [nzLoading]="submitting">Save user information</button>
+        <button nz-button [routerLink]="['/users']" style="margin-left: 16px;">Back</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>

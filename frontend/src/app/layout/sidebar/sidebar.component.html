@@ -1,0 +1,34 @@
+<div class="aside-inner">
+
+
+  <ul nz-menu [nzMode]="'inline'" nzTheme='light' [nzInlineCollapsed]="settings.layout.collapsed">
+    <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+      <a [routerLink]="['/dashboard']"><i class="anticon anticon-dashboard"></i><span>Dashboard</span></a>
+    </li>
+    <li nz-submenu nzOpen>
+      <span title>
+        <i class="anticon anticon-user"></i>
+        <span>Personal settings</span>
+      </span>
+      <ul>
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+          <a [routerLink]="['/profile']"><i class="anticon anticon-profile"></i><span>My profile</span></a>
+        </li>
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+          <a [routerLink]="['/password']"><i class="anticon anticon-lock"></i><span>Change password</span></a>
+        </li>
+      </ul>
+    </li>
+    <li nz-submenu nzOpen *appHasAnyAuthority="['ROLE_ADMIN']">
+      <span title>
+        <i class="anticon anticon-setting"></i>
+        <span>System Settings</span>
+      </span>
+      <ul>
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+          <a [routerLink]="['/users']"><i class="anticon anticon-team"></i><span>User Management</span></a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

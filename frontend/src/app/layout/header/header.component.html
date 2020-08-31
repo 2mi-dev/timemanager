@@ -1,0 +1,25 @@
+<div class="logo">
+  <a [routerLink]="['/']">
+    <img class="expanded" src="./assets/images/logo-full.svg" style="max-height:40px;" />
+    <img class="collapsed" src="./assets/images/logo.svg" style="max-height:30px;" />
+  </a>
+</div>
+<div class="top-nav-wrap">
+  <ul class="top-nav">
+    <!-- Menu -->
+    <li>
+      <div class="item" (click)="toggleCollapsedSideabar()">
+        <i class="anticon anticon-menu-{{settings.layout.collapsed ? 'unfold' : 'fold'}}"></i>
+      </div>
+    </li>
+  </ul>
+
+  <ul class="top-nav">
+    <li>
+      <app-fullscreen></app-fullscreen>
+    </li>
+    <li>
+      <app-header-user></app-header-user>
+    </li>
+  </ul>
+</div>

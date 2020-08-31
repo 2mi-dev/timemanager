@@ -1,0 +1,15 @@
+<nz-dropdown nzPlacement="bottomRight" *ngIf="!!principal">
+  <div class="item d-flex align-items-center px-sm" nz-dropdown>
+    <!--<nz-avatar [ngStyle]="{'background-color':color}" [nzText]="avatarChar" [nzSrc]="principal.avatar"></nz-avatar>-->
+    {{username}}
+  </div>
+  <ul nz-menu>
+    <li nz-menu-item [routerLink]="['/profile']">
+      <i class="anticon anticon-idcard"></i> <span>Personal information</span></li>
+    <li nz-menu-item [routerLink]="['/password']">
+      <i class="anticon anticon-lock"></i> <span>Change password</span></li>
+    <li nz-menu-divider></li>
+    <li nz-menu-item (click)="logout()">
+      <i class="anticon anticon-logout"></i> <span>Sign out</span></li>
+  </ul>
+</nz-dropdown>
